@@ -1,0 +1,13 @@
+2a702299c3d0a278742317c1a7e708d7 *DESCRIPTION
+6f53f8c4ca41a5cd19425c64a069a498 *NAMESPACE
+b0c04bb47a5f05099fe9137cbde83104 *NEWS
+a7e4e180fb57e0483d9769b8d38b91e4 *R/GeneralUtilities.R
+669b1f870344e41a7d31ba05ae5a2296 *R/ltmle.R
+024b2c6fe8a8d2e74156d59ebbee2acf *R/ltmle_sg.R
+4319ae29d840dc42ce5e94c0cf053771 *data/sampleDataForLtmleMSM.RData
+d0c5b8d1e192a486755089d15635d399 *inst/tests/test-random.R
+e0be028e627e6bc0807ad1e33fb1a2eb *man/ltmle-package.rd
+72b3b35bcdd7a8c0d829d3239d2e6ec6 *man/ltmle.rd
+2f78e2abbb0417b1c2c44df7c0895af1 *man/sampleDataForLtmleMSM.Rd
+6b05dd4bb2be7e9788e6b446f74e61cc *man/summary.ltmle.Rd
+79dc387c182b259a2cdd8e942ac90baf *tests/test-all.R
