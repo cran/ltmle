@@ -1,8 +1,8 @@
 Package: ltmle
 Type: Package
 Title: Longitudinal Targeted Maximum Likelihood Estimation
-Version: 0.9.1
-Date: 2013-10-17
+Version: 0.9.3
+Date: 2013-12-10
 Maintainer: Joshua Schwab <joshuaschwab@yahoo.com>
 Authors@R: c(person("Joshua", "Schwab", role=c("aut", "cre"),
     email="joshuaschwab@yahoo.com"), person("Samuel", "Lendle", role="aut"),
@@ -15,8 +15,8 @@ Description: Targeted Maximum Likelihood Estimation (TMLE) of
     point-treatment and longitudinal data
 License: GPL-2
 Collate: 'GeneralUtilities.R' 'ltmle.R' 'ltmle_sg.R'
-        'BinaryToCensoring.R' 'DeterministicFunctions.R'
-Packaged: 2013-10-18 16:49:46 UTC; maya
+        'BinaryToCensoring.R' 'DeterministicFunctions.R' 'zzz.R'
+Packaged: 2013-12-12 17:46:03 UTC; maya
 Author: Joshua Schwab [aut, cre],
   Samuel Lendle [aut],
   Maya Petersen [aut],
@@ -24,4 +24,4 @@ Author: Joshua Schwab [aut, cre],
   Susan Gruber [ctb]
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2013-10-18 19:58:02
+Date/Publication: 2013-12-12 18:58:41
