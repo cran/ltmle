@@ -11,8 +11,8 @@ Targeted Maximum Likelihood Estimation (TMLE) of treatment/censoring specific me
 \tabular{ll}{
 Package: \tab ltmle\cr
 Type: \tab Package\cr
-Version: \tab 0.9.1\cr
-Date: \tab 2013-10-17\cr
+Version: \tab 0.9.3-1\cr
+Date: \tab 2014-4-22\cr
 License: \tab GPL-2\cr
 }
 }

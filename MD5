@@ -1,6 +1,6 @@
-21c6dd7a02e9dc5ccfc6b583ed70875f *DESCRIPTION
+2c1fc97b489cc1780ea74a4acd7d813d *DESCRIPTION
 9ebfdbe79039e4b865f78fec64fe0de0 *NAMESPACE
-1938ca19c5631b75b8a8ab28ce70fe4b *NEWS
+d496c6bf9898002b313fb92e8187410b *NEWS
 896436b24fffb6b53ca8afd95c456792 *R/BinaryToCensoring.R
 683e5b669c4ceef7d69dc1f1cbee40a1 *R/DeterministicFunctions.R
 a7e4e180fb57e0483d9769b8d38b91e4 *R/GeneralUtilities.R
@@ -13,7 +13,7 @@ f6f2554076e025f0f1329d698789fed7 *README.md
 57655f1dc48bee673dc7c6f8de6bb582 *man/BinaryToCensoring.Rd
 cf681e45512cbb8fb265965c05168036 *man/DeterministicFunctions.Rd
 b40b15732c16f019012f3dcace73b06d *man/PreviousReleaseTests.Rd
-44e449e6864f75f62f4c44f58ca2a144 *man/ltmle-package.rd
+573e43f564328736f79e76c65f104db7 *man/ltmle-package.rd
 7e924b1faf5678a6739e87895d031979 *man/ltmle.rd
 6f7378705ab4b390e1fc2c6b0fd7846a *man/sampleDataForLtmleMSM.Rd
 71ed84de3e8c2341bb27ba04ae2e4cc1 *man/summary.ltmle.Rd
