@@ -1,8 +1,8 @@
 Package: ltmle
 Type: Package
 Title: Longitudinal Targeted Maximum Likelihood Estimation
-Version: 0.9-5
-Date: 2015-5-6
+Version: 0.9-6
+Date: 2015-5-26
 Maintainer: Joshua Schwab <joshuaschwab@yahoo.com>
 Authors@R: c(person("Joshua", "Schwab", role=c("aut", "cre"),
     email="joshuaschwab@yahoo.com"), person("Samuel", "Lendle", role="aut"),
@@ -19,12 +19,12 @@ Collate: 'GeneralUtilities.R' 'ltmle.R' 'ltmle_sg.R'
         'BinaryToCensoring.R' 'DeterministicFunctions.R' 'zzz.R'
 URL: https://github.com/joshuaschwab/ltmle
 BugReports: https://github.com/joshuaschwab/ltmle/issues
-Packaged: 2015-05-06 23:55:32 UTC; maya
+NeedsCompilation: no
+Packaged: 2015-05-28 22:03:40 UTC; maya
 Author: Joshua Schwab [aut, cre],
   Samuel Lendle [aut],
   Maya Petersen [aut],
   Mark van der Laan [aut],
   Susan Gruber [ctb]
-NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2015-05-07 22:00:11
+Date/Publication: 2015-05-29 08:50:25
