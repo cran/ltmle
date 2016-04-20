@@ -1,10 +1,10 @@
-1f1be7e5224347288f09f68dd517d049 *DESCRIPTION
+2d999f6ff721158a8c7d51b71919b6bb *DESCRIPTION
 e3f8eff4872f9fcd3b2c1d98827847c2 *NAMESPACE
-ec431b66efafc4cc5d36f919cb5af9f6 *NEWS
+ec7f7733617ca9c35b3bdd5090663270 *NEWS
 d680f79dee51338d6fa73a5e40d8d5c1 *R/BinaryToCensoring.R
 fbb08d9db4867c24327ab569f2c056a0 *R/DeterministicFunctions.R
 37f8b2b00774ddb02122d22aca094875 *R/GeneralUtilities.R
-032e365cfcb3552bc5fb24e0557f7e44 *R/ltmle-package.R
+4d1ea1ae69836bb5e03b00edaee00c8a *R/ltmle-package.R
 677c11a009e30e576c26001e2420a7af *R/ltmle.R
 8f7b6cb112202100166ab3c8c5a884e7 *R/ltmle_sg.R
 e634e352fe5afe80a9eccb8cf55c13f2 *R/zzz.R
@@ -12,7 +12,7 @@ f6f2554076e025f0f1329d698789fed7 *README.md
 568e0f9fd1ea9e839f109db7c5bb0340 *data/sampleDataForLtmleMSM.RData
 d365bbe1794fb8a002f1f6f9cd87e32f *man/BinaryToCensoring.Rd
 773328a3a2814969f1d701d5afaa7d17 *man/deterministic.g.function_template.Rd
-0c56e81927b211471c3749f78c6b4d02 *man/ltmle-package.Rd
+aa6c2639e329e0e79dbdd0fe63ef7903 *man/ltmle-package.Rd
 b98e814c410430255847c4a04dfc4e98 *man/ltmle.Rd
 91f35ce97f1241ad453427c82926518b *man/sampleDataForLtmleMSM.Rd
 a099047a2f002bf62ea70f0b483945da *man/summary.ltmle.Rd
