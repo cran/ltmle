@@ -23,7 +23,9 @@ with contributions from Susan Gruber
 
 Maintainer: Joshua Schwab \email{joshuaschwab@yahoo.com}
 }
-\references{
+\seealso{
+\code{\link{ltmle}}
+#' @references 
 Bang, Heejung, and James M. Robins. "Doubly robust estimation in missing data
 and causal inference models." Biometrics 61.4 (2005): 962-973.
 
@@ -47,9 +49,6 @@ Berkeley Division of Biostatistics Working Paper Series. Working Paper 290.
 
 van der Laan, Mark J. and Rose, Sherri, "Targeted Learning: Causal Inference
 for Observational and Experimental Data" New York: Springer, 2011.
-}
-\seealso{
-\code{\link{ltmle}}
 }
 \keyword{package}
 

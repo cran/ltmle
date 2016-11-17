@@ -10,7 +10,7 @@ ltmle(data, Anodes, Cnodes = NULL, Lnodes = NULL, Ynodes,
   gbounds = c(0.01, 1), Yrange = NULL, deterministic.g.function = NULL,
   stratify = FALSE, SL.library = NULL, estimate.time = TRUE,
   gcomp = FALSE, iptw.only = FALSE, deterministic.Q.function = NULL,
-  IC.variance.only = FALSE, observation.weights = NULL)
+  variance.method = "tmle", observation.weights = NULL, id = NULL)
 
 ltmleMSM(data, Anodes, Cnodes = NULL, Lnodes = NULL, Ynodes,
   survivalOutcome = NULL, Qform = NULL, gform = NULL, gbounds = c(0.01,
@@ -18,7 +18,7 @@ ltmleMSM(data, Anodes, Cnodes = NULL, Lnodes = NULL, Ynodes,
   regimes, working.msm, summary.measures, final.Ynodes = NULL,
   stratify = FALSE, msm.weights = "empirical", estimate.time = TRUE,
   gcomp = FALSE, iptw.only = FALSE, deterministic.Q.function = NULL,
-  memoize = TRUE, IC.variance.only = FALSE, observation.weights = NULL)
+  variance.method = "tmle", observation.weights = NULL, id = NULL)
 }
 \arguments{
 \item{data}{data frame following the time-ordering of the nodes. See
@@ -48,8 +48,7 @@ matrix/array of prob(A=1). See 'Details'.}
 counterfactual treatment or a list of length 2. See 'Details'.}
 
 \item{rule}{a function to be applied to each row (a named vector) of
-\code{data} that returns a numeric vector of length numAnodes or a list of
-length 2. See 'Details'.}
+\code{data} that returns a numeric vector of length numAnodes. See 'Details'.}
 
 \item{gbounds}{lower and upper bounds on estimated cumulative probabilities
 for g-factors. Vector of length 2, order unimportant.}
@@ -86,16 +85,25 @@ only IPTW is run, which is faster.}
 deterministically. See 'Details'. Default \code{NULL} indicates no
 deterministic links.}
 
-\item{IC.variance.only}{If \code{FALSE}, compute both the robust variance
+\item{variance.method}{Method for estimating variance of TMLE. 
+One of "ic", "tmle", "iptw". If "tmle", compute both the robust variance
 estimate using TMLE and the influence curve based variance estimate (use the
-larger of the two). If \code{TRUE}, only compute the influence curve based
-variance estimate, which is faster, but may be substantially
-anti-conservative if there are positivity violations or rare outcomes.  
-IC.variance.only=FALSE is not yet available with non-binary outcomes, 
+larger of the two). If "iptw", compute both the robust variance
+estimate using IPTW and the influence curve based variance estimate (use the
+larger of the two). If "ic", only compute the influence curve based
+variance estimate. "ic" is fastest, but may be substantially
+anti-conservative if there are positivity violations or rare outcomes. "tmle" is
+slowest but most robust if there are positivity violations or rare outcomes. 
+"iptw" is a compromise between speed and robustness.
+variance.method="tmle" or "iptw" are not yet available with non-binary outcomes, 
 gcomp=TRUE, stratify=TRUE, deterministic.Q.function, or numeric gform.}
 
 \item{observation.weights}{observation (sampling) weights. Vector of length
 n. If \code{NULL}, assumed to be all 1.}
+
+\item{id}{Household or subject identifiers. Vector of length n or \code{NULL}. 
+Integer, factor, or character recommended, but any type that can be coerced 
+to factor will work. \code{NULL} means all distinct ids.}
 
 \item{regimes}{binary array: n x numAnodes x numRegimes of counterfactual
 treatment or a list of 'rule' functions}
@@ -117,12 +125,6 @@ weight by empirical proportions of rows matching each regime for each
 final.Ynode, with duplicate regimes given zero weight. If \code{NULL}, no
 weights. Or an array of user-supplied weights with dimensions c(n,
 num.regimes, num.final.Ynodes) or c(num.regimes, num.final.Ynodes).}
-
-\item{memoize}{If \code{TRUE}, glm regressions will be memoized. It is
-recommended to leave this as \code{TRUE} (the default), especially if there
-are multiple \code{final.Ynodes}, because the code is not written as
-efficiently as it should be and will end up repeating the same glm call.
-Will be fixed in a future release.}
 }
 \value{
 \code{ltmle} returns an object of class "\code{ltmle}" (unless
@@ -146,13 +148,18 @@ influence curve values for Targeted Maximum Likelihood Estimate without
 updating [NULL if \code{gcomp} is \code{FALSE}] } \item{cum.g}{cumulative g,
 after bounding: for ltmle, n x numACnodes, for ltmleMSM, n x numACnodes x
 num.regimes} \item{cum.g.unbounded}{cumulative g, before bounding: for
-ltmle, n x numACnodes, for ltmleMSM, n x numACnodes x num.regimes}
+ltmle, n x numACnodes, for ltmleMSM, n x numACnodes x num.regimes} 
+\item{cum.g.used}{binary - TRUE if an entry of cum.g was used in the updating
+step (note: even if cum.g.used is FALSE, a small value of cum.g.unbounded may
+still indicate a positivity problem): for ltmle, n x numACnodes, 
+for ltmleMSM, n x numACnodes x num.regimes} 
 \item{call}{the matched call} \item{gcomp}{the \code{gcomp} input}
 \item{formulas}{a \code{list} with elements \code{Qform} and \code{gform}}
 \item{fit}{a list with the following components} \itemize{ \item \code{g} -
-list of length numACnodes - \code{glm} or \code{SuperLearner} return objects
-from fitting g regressions \item \code{Q} - list of length numLYnodes -
-\code{glm} or \code{SuperLearner} return objects from fitting Q regressions
+list of length numACnodes - \code{glm} or \code{SuperLearner} (see Details) 
+return objects from fitting g regressions 
+\item \code{Q} - list of length numLYnodes - \code{glm} or \code{SuperLearner} 
+(see Details) return objects from fitting Q regressions
 \item \code{Qstar} - list of length numLYnodes - \code{glm} (or numerical
 optimization if \code{glm} fails to solve the score equation) return objects
 from updating the Q fit }
@@ -171,11 +178,13 @@ values for TMLE (without updating if \code{gcomp} input is \code{TRUE})}
 bounding} \item{cum.g.unbounded}{array, n x numACnodes x numRegimes -
 cumulative g, before bounding} \item{call}{the matched call}
 \item{gcomp}{the \code{gcomp} input} \item{formulas}{a \code{list} with
-elements \code{Qform} and \code{gform}} \item{fit}{a list with the following
-components} \itemize{ \item \code{g} - list of length numRegimes of list of
-length numACnodes - \code{glm} or \code{SuperLearner} return objects from
+elements \code{Qform} and \code{gform}} 
+\item{fit}{a list with the following components} 
+\itemize{ \item \code{g} - list of length numRegimes of list of length 
+numACnodes - \code{glm} or \code{SuperLearner} (see Details) return objects from
 fitting g regressions \item \code{Q} - list of length numLYnodes -
-\code{glm} or \code{SuperLearner} return objects from fitting Q regressions
+\code{glm} or \code{SuperLearner} (see Details) return objects from fitting Q 
+regressions
 \item \code{Qstar} - list of length numLYnodes - \code{glm} (or numerical
 optimization if \code{glm} fails to solve the score equation) return objects
 from updating the Q fit }
@@ -242,10 +251,7 @@ in \code{data}. The left hand side of each formula should be
 "\code{Q.kplus1}". If \code{SL.library} is \code{NULL}, \code{glm} will be
 called using the elements of \code{Qform}. If \code{SL.library} is
 specified, \code{\link[SuperLearner:SuperLearner]{SuperLearner}} will be
-called and all variables appearing on the right hand side of a formula will
-be passed to \code{\link[SuperLearner:SuperLearner]{SuperLearner}}. The
-actual functional form of the formula is unimportant if
-\code{\link[SuperLearner:SuperLearner]{SuperLearner}} is called.
+called after a design matrix is created using \code{Qform.}
 
 ** If there is a "block" of L and Y nodes not separated by A or C nodes,
 only one regression is required at the first L/Y node in a block. You can
@@ -261,11 +267,8 @@ be the same as the order the A and C nodes appear in \code{data}. The left
 hand side of each formula should be the name of the Anode or Cnode. If
 \code{SL.library} is \code{NULL}, \code{glm} will be called using the
 elements of \code{gform}. If \code{SL.library} is specified,
-\code{\link[SuperLearner:SuperLearner]{SuperLearner}} will be called and all
-variables appearing on the right hand side of a formula will be passed to
-\code{\link[SuperLearner:SuperLearner]{SuperLearner}}. The actual functional
-form of the formula is unimportant if
-\code{\link[SuperLearner:SuperLearner]{SuperLearner}} is called.
+\code{\link[SuperLearner:SuperLearner]{SuperLearner}} will be called after a 
+design matrix is created using \code{gform}.
 
 In \code{ltmle}, \code{gform} can also be a n x numACnodes matrix where
 entry (i, j) is the probability that the ith observation of the jth A/C node
@@ -319,8 +322,12 @@ to \code{list("SL.glm", "SL.stepAIC", "SL.bayesglm", c("SL.glm",
 "screen.corP"), c("SL.stepAIC", "screen.corP"), c("SL.step.interaction",
 "screen.corP"), c("SL.bayesglm", "screen.corP")}.  Note that the default set
 of libraries consists of main terms models. It may be advisable to include
-squared terms, interaction terms, etc in \code{data} or include libraries
-that consider non-linear terms.
+squared terms, interaction terms, etc in \code{gform} and \code{Qform} or 
+include libraries that consider non-linear terms.
+
+If \code{attr(SL.library, "return.fit") == TRUE}, then \code{fit$g} and 
+\code{fit$Q} will return full \code{SuperLearner} objects. If not, only a
+summary matrix will be returned to save memory.
 
 The print method for \code{ltmle} objects only prints the tmle estimates.
 }
@@ -355,11 +362,9 @@ result1 <- ltmle(data, Anodes="A", Lnodes=NULL, Ynodes="Y", abar=1,
 summary(result1)
 summary(result1, estimator="iptw")
 
-#SuperLearner semiparametric estimation using (incorrectly) specified regressors
-#note: The functional form for Qform and gform is unimportant if 
-# using SuperLearner - see 'Details'
+#SuperLearner semiparametric estimation using correctly specified regressors
 result1a <- ltmle(data, Anodes="A", Lnodes=NULL, Ynodes="Y", 
- Qform=c(Y="Q.kplus1 ~ W1 + W3 + A"), gform="A ~ W1", abar=1, 
+ Qform=c(Y="Q.kplus1 ~ I(W1^2) + W2 + W3*A"), gform="A ~ I(W1^2)", abar=1, 
  SL.library=c("SL.glm", "SL.step", "SL.mean"))
 summary(result1a)
 }
@@ -625,11 +630,15 @@ A <- rexpit(8 * W)
 Y <- rexpit(W + A)
 r1 <- ltmle(data.frame(W, A, Y), Anodes="A", Ynodes="Y", abar = 1, estimate.time=FALSE)
 r2 <- ltmle(data.frame(W, A, Y), Anodes="A", Ynodes="Y", abar = 1, estimate.time=FALSE, 
- IC.variance.only=TRUE)
+ variance.method="ic")
+r3 <- ltmle(data.frame(W, A, Y), Anodes="A", Ynodes="Y", abar = 1, estimate.time=FALSE, 
+ variance.method="iptw")
 print(summary(r1))
 print(summary(r2))
-print(summary(r1, "iptw"))
-print(summary(r2, "iptw")) #the same - IC.variance.only only affects TMLE
+print(summary(r3))
+print(summary(r1, estimator="iptw"))
+print(summary(r2, estimator="iptw")) #the same - variance.method only affects TMLE
+print(summary(r3, estimator="iptw")) #the same - variance.method only affects TMLE
 }
 
 }

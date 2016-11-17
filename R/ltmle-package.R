@@ -17,7 +17,7 @@
 #' 
 #' Maintainer: Joshua Schwab \email{joshuaschwab@@yahoo.com}
 #' @seealso \code{\link{ltmle}}
-#' @references 
+#' #' @references 
 #' Bang, Heejung, and James M. Robins. "Doubly robust estimation in missing data
 #' and causal inference models." Biometrics 61.4 (2005): 962-973.
 #' 
