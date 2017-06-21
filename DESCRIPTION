@@ -1,8 +1,8 @@
 Package: ltmle
 Type: Package
 Title: Longitudinal Targeted Maximum Likelihood Estimation
-Version: 0.9-9
-Date: 2016-11-16
+Version: 0.9-9-3
+Date: 2017-6-20
 Maintainer: Joshua Schwab <joshuaschwab@yahoo.com>
 Authors@R: c(person("Joshua", "Schwab", role=c("aut", "cre"),
     email="joshuaschwab@yahoo.com"), person("Samuel", "Lendle", role="aut"),
@@ -21,11 +21,11 @@ URL: https://github.com/joshuaschwab/ltmle
 BugReports: https://github.com/joshuaschwab/ltmle/issues
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2016-11-16 23:32:46 UTC; maya
+Packaged: 2017-06-21 20:23:58 UTC; joshua
 Author: Joshua Schwab [aut, cre],
   Samuel Lendle [aut],
   Maya Petersen [aut],
   Mark van der Laan [aut],
   Susan Gruber [ctb]
 Repository: CRAN
-Date/Publication: 2016-11-17 08:27:43
+Date/Publication: 2017-06-21 23:22:18 UTC
