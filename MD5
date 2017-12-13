@@ -1,11 +1,11 @@
-b4b344a2015dc73dd162c801faeb7ebc *DESCRIPTION
+5a46c4db7dc47fc7a3806421d979e514 *DESCRIPTION
 3128b1393f81c9f9e211f1507e435c57 *NAMESPACE
-1819547521cd2c17afaab272636c0c38 *NEWS
+2142bbdad4aa389b06bfc2156e680b0b *NEWS
 d3e435a8ea98430be752d155c3254c8c *R/BinaryToCensoring.R
 e89db6f8c698703fc7c6f7461e80f6be *R/DeterministicFunctions.R
-60c0a23874d25eb98c4c92d6224ec15c *R/GeneralUtilities.R
+0165a13dc43bc1c55d21c0d09bb78852 *R/GeneralUtilities.R
 ded7234a4217497a0915e225e6d36ec4 *R/ltmle-package.R
-9b71f42b9920b79bf6b4061c286a2340 *R/ltmle.R
+b8e84a4a96afb2a2de2de1e7b37463f3 *R/ltmle.R
 0d3bbea7cd9edc24117f47e3a9560a43 *R/ltmle_sg.R
 3b897cdc46f695ed05d103d765513e8c *R/zzz.R
 f6f2554076e025f0f1329d698789fed7 *README.md
@@ -17,7 +17,7 @@ ad2d2a2cb89a6d69e1b809d82937b5b1 *man/ltmle-package.Rd
 0cf91e53ff50a3ab9c801779ffe6f5d5 *man/ltmle.Rd
 1ec0b9c586af0bf759af7e442e5723d3 *man/sampleDataForLtmleMSM.Rd
 6e0b5c5f1d7db921e87a51caac1153ec *man/summary.ltmle.Rd
-c4085e6b4b65948a7a8ecf1eac097805 *tests/test-all.R
+057a32343941312a21c3679d708921ea *tests/testthat.R
 0bb9610f57779c5ff21e9eeeb8697c07 *tests/testthat/test-(init).R
 1cc9579c29ed38e04cca805624459b55 *tests/testthat/test-AbarAndRegimes.R
 98faf33385ff612095dc068efe9514b8 *tests/testthat/test-BaselineCovMSM.R
